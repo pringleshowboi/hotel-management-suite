@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import  { signUp } from 'next-auth-sanity/client'
 import  { signIn, useSession } from 'next-auth/react'
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { Space_Mono } from "next/font/google";
 
 const defaultFormData = {
     email: '',
@@ -28,6 +27,13 @@ const Auth = () => {
 
     const {data: session} = useSession();
     console.log(session);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (session?.user) {
+            router.push('/'); // Redirect to homepage if user is authenticated
+        }
+    }, [session, router]);
 
     const loginHandler = async () => {
         try {

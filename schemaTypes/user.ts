@@ -13,7 +13,7 @@ const user = {
             initialValue: false,
             validation: (Rule) => Rule.required(),
             readOnly: true,
-            hidden: true
+            hidden: false
         }),
         defineField({
             name: 'name',
